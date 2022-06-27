@@ -1,0 +1,169 @@
+In this work, we have tried to establish the structure of the solar tree by optimizing the tilt  angle of a solar panel which is to be fabricated in the solar tree for the attainment of maximum irradiance at a particular location during different months of the year. We have designed the same for different places situated at north, south, east, west of the country so that an optimized  result could be drawn out for all the locations. This work is done by the help of MATLAB  codes. The MATLAB code is written for different diffused radiation models namely isotropic and anisotropic models and the study is done by the plots obtained by the code. The estimation of the area acquired by the solar panel is also calculated with the help of the global irradiance data provided. The estimations done in this project will help the society since it provides a generalized mathematical modeling of the solar irradiance which helps to optimize the tilt angle of a particular place. The detailed work was done for Jasidih, Jharkhand, India situated at a latitude of 24.48˚N but for generalized result optimization was done for places with different latitudes Delhi, Kerala as well as Jaipur. A tracking system  no doubt can be installed in a solar tree, but if we follow this optimizing technique for placing the solar panels with a tilt then the solar tree could be made cost effective.
+
+
+###MATLAB CODE FOR ISOTROPIC MEDIUM###
+clear all;
+close all;
+clc;
+H=input('the monthly average of global radiation on a horizontal surfaces');
+HO=input('Monthly average extraterrestrial daily radiation ');
+p=0.2 %solar reflectivity
+l=input('the latitude position of the place');
+o=l*pi/180 %latitude position
+n=0
+for i=1:12
+    n(i)=15*(2*i-1);
+d(i)=23.45*sin(360*(284+n(i))/365); %declination for the mean day of month
+end
+k = H./HO;
+HD = H-1.13*H.*k;%diffuse beam component of the radiation on a tilted surface
+for i=1:12
+    for b = 1:90
+    w=min(acos(-tan(o)*tan(d(i)*pi/180)),acos(-tan(o-(b*pi/180))*tan(d(i)*pi/180)));
+    rb=(cos(o-(b*pi/180))*cos(d(i)*pi/180)*sin(w)+w*sin(o-(b*pi/180))*sin(d(i)*pi/180))/(cos(o)*cos(d(i)*pi/180)*sin(w)+w*sin(o)*sin(d(i)*pi/180));
+    HB=(H(i)-HD(i))*rb;%direct beam component of the radiation on a tilted surface
+    HR=H(i)*p*(1-cos(b*pi/180))/2;%reflected beam component of the radiation on a tilted surface
+    rd=(1+cos(b*pi/180))/2;
+    HS=rd*HD(i);
+    HT(i,b)= HB+HS+HR;%monthly average daily total radiation on the tilted surface
+    
+    end
+end
+tiltangle = [10:10:90];
+plot(tiltangle,HT(1,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(2,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(3,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(4,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(5,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(6,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(7,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(8,10:10:90),'-x');
+hold on
+plot(tiltangle,HT(9,10:10:90),'-x');
+hold on
+plot(tiltangle,HT(10,10:10:90),'-x');
+hold on
+plot(tiltangle,HT(11,10:10:90),'-x');
+hold on
+plot(tiltangle,HT(12,10:10:90),'-x');
+hold on
+title('Monthly average total solar radiation in location')
+xlabel('Tilt angle')
+ylabel('Irradiation')
+legend('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
+
+
+
+
+###MATLAB Code for Anisotropic medium###
+clear all;
+close all;
+clc;
+H=input('the monthly average of global radiation on a horizontal surfaces');
+HO=input('Monthly average extraterrestrial daily radiation ');
+p=0.2 %solar reflectivity
+l=input('the latitude position of the place');
+o=l*pi/180 %latitude position
+n=0
+for i=1:12
+    n(i)=15*(2*i-1);
+d(i)=23.45*sin(360*(284+n(i))/365); %declination for the mean day of month
+end
+k = H./HO;
+HD = H-1.13*H.*k;%diffuse beam component of the radiation on a tilted surface
+for i=1:12
+    for b = 1:90
+    w=min(acos(-tan(o)*tan(d(i)*pi/180)),acos(-tan(o-(b*pi/180))*tan(d(i)*pi/180)));
+    rb=(cos(o-(b*pi/180))*cos(d(i)*pi/180)*sin(w)+w*sin(o-(b*pi/180))*sin(d(i)*pi/180))/(cos(o)*cos(d(i)*pi/180)*sin(w)+w*sin(o)*sin(d(i)*pi/180));
+    HB=(H(i)-HD(i))*rb;
+    HR=H(i)*p*(1-cos(b*pi/180))/2;
+    rd=(((1+cos(b*pi/180))/2)*(1+HB/HO(i)))+(HB/HO(i)*rb);
+ 
+    HS=rd*HD(i);
+    HT(i,b)= HB+HS+HR;
+    end
+end
+tiltangle = [10:10:90];
+plot(tiltangle,HT(1,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(2,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(3,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(4,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(5,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(6,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(7,10:10:90),'-*');
+hold on
+plot(tiltangle,HT(8,10:10:90),'-x');
+hold on
+plot(tiltangle,HT(9,10:10:90),'-x');
+hold on
+plot(tiltangle,HT(10,10:10:90),'-x');
+hold on
+plot(tiltangle,HT(11,10:10:90),'-x');
+hold on
+plot(tiltangle,HT(12,10:10:90),'-x');
+hold on
+title('Monthly average total solar radiation in location')
+xlabel('Tilt angle')
+ylabel('Irradiation')
+legend('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
+
+
+
+
+
+####MATLAB Code for the area to be acquired by the pv cells###
+clc;
+clear all;
+close all;
+E=input('the energy needed from the system ');
+R=input('solar cell efficiency');
+PR=input('performance ratio');
+s1=xlsread('Book1.xlsx',1,'E2:E7202','basic');
+A1 = size(s1);
+for i=1:A1(1)
+if s1(i,1)~=0
+ ar1(i) = E/(R*PR*s1(i,1));
+end
+end
+Avgarea1 = mean(ar1);
+disp(Avgarea1)% maximum area required to be covered with solar cell in month of March
+s2=xlsread('Book2.xlsx',1,'E2:E7202','basic');
+A2 = size(s2);
+for j=1:A2(1)
+if s2(j,1)~=0
+ ar2(j) = E/(R*PR*s2(j,1));
+end
+end
+Avgarea2 = mean(ar2);
+disp(Avgarea2)% maximum area required to be covered with solar cell in month of December
+s3=xlsread('Book3.xlsx',1,'E2:E7202','basic');
+A3 = size(s3);
+for k=1:A3(1)
+if s3(k,1)~=0
+ ar3(k) = E/(R*PR*s3(k,1));
+end
+end
+Avgarea3 = mean(ar3);
+disp(Avgarea3)% maximum area required to be covered with solar cell in month of August
+s4=xlsread('Book4.xlsx',1,'E2:E7202','basic');
+A4 = size(s4);
+for l=1:A4(1)
+if s4(l,1)~=0
+ ar4(l) = E/(R*PR*s4(l,1));
+end
+end
+Avgarea4= mean(ar4);
+disp(Avgarea4)% maximum area required to be covered with solar cell in month of May

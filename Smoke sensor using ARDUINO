@@ -1,3 +1,28 @@
+Name of Project: Smoke detection using MQ2 smoke sensor.
+Components  required:
+⦁	Arduino UNO
+⦁	Smoke detector sensor
+⦁	Jumper wires
+⦁	Buzzer
+⦁	LED lights
+⦁	Breadboard
+⦁	USB cable
+
+Description:
+The sensor analog output voltage will be read and when the smoke reaches a certain level, it will make a buzzer sound.When the output voltage is below the level buzzer sound will not be made.
+Smoke sensor: It has a built in potentiometer that allows to adjust the sensor sensitivity according to how accurate we want to detect the smoke.
+The voltage that the sensor outputs changes accordingly to the smoke level that exists in the atmosphere. The sensor outputs a voltage that is proportional to the concentration of smoke.The greater the concentration the greater the output voltage and viceversa.
+The output can be an analog signal that can be read from analog input or a digital output  that can be read with a digital input of the arduino.
+
+Observation:
+When the sensor value reaches above threshold value i.e when the quantity of smoke increases, buzzer is activated and along with it red LED also glows .
+
+Application:
+Fire Alarm
+Gas leakage alarm
+
+
+Code used-
 intredLed = 12;
 intgreenLed = 11;
 int buzzer = 9;
